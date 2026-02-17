@@ -1,0 +1,370 @@
+:root {
+    /* Colors */
+    --color-primary: #1F51FF;
+    /* Electric Blue */
+    --color-bg: #F4F4F5;
+    /* Off-White */
+    --color-text: #111111;
+    --color-grid: #D4D4D8;
+
+    /* Typography */
+    --font-display: 'Orbitron', sans-serif;
+    --font-body: 'Geologica', sans-serif;
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    --spacing-xl: 8rem;
+
+    /* Layout */
+    --grid-columns: 12;
+    --container-max-width: 1440px;
+}
+
+/* Reset & Base */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    font-optical-sizing: auto;
+}
+
+/* Background Grid */
+.background-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    background-image: radial-gradient(var(--color-grid) 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Typography Utilities */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+a {
+    text-decoration: none;
+    color: currentColor;
+    transition: color 0.2s ease;
+}
+
+/* Header */
+/* Header */
+/* Header */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    mix-blend-mode: difference;
+    color: white;
+    /* Visible against dark content, but blend mode handles the rest */
+}
+
+/* Since mix-blend-mode can be tricky with fixed headers on light backgrounds, 
+   we might need a solid color if blend mode isn't enough. 
+   Let's stick to standard color for now and adjust. */
+.site-header {
+    color: var(--color-primary);
+    mix-blend-mode: normal;
+    background: rgba(244, 244, 245, 0.8);
+    backdrop-filter: blur(5px);
+    border-bottom: 1px dashed var(--color-primary);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    /* Adjust based on logo aspect ratio */
+}
+
+.logo-img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+}
+
+.main-nav a {
+    position: relative;
+    font-weight: 500;
+}
+
+.main-nav a:hover {
+    color: var(--color-text);
+    /* Fallback */
+    text-shadow: 0 0 5px var(--color-primary);
+}
+
+.cta-button {
+    border: 1px solid currentColor;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    padding: var(--spacing-xl) var(--spacing-md) var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.hero-title {
+    font-size: clamp(3rem, 10vw, 8rem);
+    color: var(--color-primary);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    z-index: 2;
+}
+
+.line {
+    display: inline-block;
+    transition: transform 0.1s linear;
+}
+
+/* Stagger lines for the 'speculative' look */
+.line-2 {
+    margin-left: 20%;
+}
+
+.line-3 {
+    margin-left: 40%;
+}
+
+.line-4 {
+    text-align: right;
+}
+
+.hero-image-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw;
+    height: 60vh;
+    background-color: #ddd;
+    /* Fallback */
+    z-index: 1;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+    filter: blur(2px);
+    border: 1px solid var(--color-primary);
+}
+
+.blue-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-primary);
+    mix-blend-mode: color;
+    opacity: 0.6;
+}
+
+.hero-meta {
+    position: absolute;
+    bottom: var(--spacing-md);
+    right: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    color: var(--color-primary);
+    border-right: 2px solid var(--color-primary);
+    padding-right: var(--spacing-xs);
+}
+
+/* Layout Utilities */
+.content-section {
+    padding: var(--spacing-xl) var(--spacing-md);
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    border-top: 1px dashed var(--color-grid);
+}
+
+/* Staggered Grid Layout */
+.staggered-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--spacing-md);
+}
+
+.col-left {
+    grid-column: 2 / span 4;
+}
+
+.col-right {
+    grid-column: 7 / span 5;
+}
+
+.section-title {
+    font-size: 3rem;
+    color: var(--color-primary);
+    line-height: 1;
+}
+
+.lead-text {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: var(--spacing-md);
+}
+
+/* Footer (Basic) */
+.site-footer {
+    padding: var(--spacing-lg) var(--spacing-md);
+    background: var(--color-primary);
+    color: white;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+}
+
+.footer-col a {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+}
+
+/* Responsive */
+/* Responsive */
+
+
+/* Services Section */
+.mb-md {
+    margin-bottom: var(--spacing-md);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-sm);
+    /* Tight gap for brutalist look */
+    margin-top: var(--spacing-md);
+}
+
+.service-card {
+    border: 1px solid var(--color-primary);
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 300px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.service-card:hover {
+    background: var(--color-primary);
+    color: white;
+    transform: translateY(-5px);
+    box-shadow: 8px 8px 0 rgba(31, 81, 255, 0.2);
+    cursor: crosshair;
+}
+
+.service-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    opacity: 0.3;
+    align-self: flex-start;
+}
+
+.service-card h3 {
+    font-size: 1.8rem;
+    margin: var(--spacing-sm) 0;
+    line-height: 1.1;
+}
+
+.service-card p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.service-card .arrow {
+    font-size: 2.5rem;
+    align-self: flex-end;
+    margin-top: var(--spacing-sm);
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover .arrow {
+    transform: translateX(10px);
+}
+
+/* Vision / Tech List */
+.tech-list {
+    list-style: none;
+    margin-top: var(--spacing-md);
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    border-top: 1px dashed var(--color-primary);
+}
+
+.tech-list li {
+    border-bottom: 1px dashed var(--color-primary);
+    padding: var(--spacing-sm) 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.tech-list li:hover {
+    background: rgba(31, 81, 255, 0.1);
+    padding-left: 10px;
+}
+
+.tech-list li::after {
+    content: '+';
+    font-weight: bold;
+}
