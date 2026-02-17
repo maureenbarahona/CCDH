@@ -129,7 +129,7 @@ a {
 }
 
 .logo-img {
-    height: 100%;
+    height: 350%;
     width: auto;
 }
 
@@ -401,6 +401,35 @@ a {
     .line-4 {
         text-align: right;
     }
+}
+
+/* Restoring Tech List Styles */
+.tech-list {
+    list-style: none;
+    margin: var(--spacing-md) 0;
+    /* Adding margin top/bottom */
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    border-top: 1px dashed var(--color-primary);
+}
+
+.tech-list li {
+    border-bottom: 1px dashed var(--color-primary);
+    padding: var(--spacing-sm) 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.tech-list li:hover {
+    background: rgba(31, 81, 255, 0.1);
+    padding-left: 10px;
+}
+
+.tech-list li::after {
+    content: '+';
+    font-weight: bold;
 }
 
 /* Utility Animations */
