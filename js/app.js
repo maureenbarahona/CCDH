@@ -1,20 +1,27 @@
 // Main Application Logic
 document.addEventListener('DOMContentLoaded', () => {
-    // Mobile Menu Toggle
+    initMobileMenu();
+    initThemeToggle();
+    initScrollEffects();
+    initScrollAnimations();
+
+    console.log('CCDH Website Loaded - 2025 Ready');
+});
+
+function initMobileMenu() {
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const mainNav = document.querySelector('.main-nav');
     const navLinks = document.querySelectorAll('.main-nav a');
 
     if (mobileMenuToggle) {
         mobileMenuToggle.addEventListener('click', () => {
+            const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+
             mobileMenuToggle.classList.toggle('active');
             mainNav.classList.toggle('active');
 
-            const isExpanded = mobileMenuToggle.classList.contains('active');
-            mobileMenuToggle.setAttribute('aria-expanded', isExpanded);
-
-            // Toggle body scroll to prevent background scrolling
-            document.body.style.overflow = isExpanded ? 'hidden' : '';
+            mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
+            document.body.style.overflow = !isExpanded ? 'hidden' : '';
         });
 
         // Close menu when clicking a link
@@ -27,10 +34,38 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+}
 
-    console.log('CCDH Website Loaded');
+function initThemeToggle() {
+    const toggleBtn = document.getElementById('theme-toggle');
+    const html = document.documentElement;
 
-    // Scroll Effects (Simple Parallax)
+    // Check saved preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        html.setAttribute('data-theme', 'dark');
+        updateToggleIcon(toggleBtn, true);
+    }
+
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateToggleIcon(toggleBtn, newTheme === 'dark');
+        });
+    }
+}
+
+function updateToggleIcon(btn, isDark) {
+    if (btn) btn.textContent = isDark ? '☀️' : '🌙';
+}
+
+function initScrollEffects() {
     window.addEventListener('scroll', () => {
         const scrolled = window.scrollY;
 
@@ -47,8 +82,9 @@ document.addEventListener('DOMContentLoaded', () => {
             heroImage.style.transform = `translate(-50%, calc(-50% + ${scrolled * 0.1}px))`;
         }
     });
+}
 
-    // Intersection Observer for Fade-In Effects
+function initScrollAnimations() {
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -57,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                entry.target.classList.add('fade-in');
                 observer.unobserve(entry.target);
             }
         });
@@ -65,19 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const fadeElements = document.querySelectorAll('.content-section, .hero-meta');
     fadeElements.forEach(el => {
-        el.style.opacity = '0';
+        el.style.opacity = '0'; // Set initial state here if not in CSS to avoid FOUC, but ideally CSS handles it
         el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
-
-    // Add visible class styling dynamically
-    const style = document.createElement('style');
-    style.innerHTML = `
-        .visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-    `;
-    document.head.appendChild(style);
-});
+}
