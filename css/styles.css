@@ -185,6 +185,48 @@ a {
     font-size: 1.5rem;
     font-weight: 500;
     color: var(--text-main);
+    position: relative;
+    padding: 0.5rem;
+    /* Add padding to give space for the borders */
+}
+
+/* Menu Animation (Top Left Borders) */
+.main-nav a:not(.cta-button)::before {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 2px;
+    height: 0px;
+    /* Start with 0 height */
+    background: var(--color-primary);
+    content: "";
+    opacity: 1;
+    transition: all 0.3s;
+}
+
+.main-nav a:not(.cta-button)::after {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 2px;
+    /* Start with visible width */
+    background: var(--color-primary);
+    content: "";
+    opacity: 1;
+    transition: all 0.3s;
+}
+
+.main-nav a:not(.cta-button):hover::before {
+    height: 100%;
+    /* Grow down */
+}
+
+.main-nav a:not(.cta-button):hover::after {
+    opacity: 0;
+    /* Fade out */
+    top: 100%;
+    /* Move down */
 }
 
 .cta-button {
